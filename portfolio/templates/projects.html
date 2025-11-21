@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Projects | Girish's Portfolio{% endblock %}
+
+{% block content %}
+
+<!-- MAIN PROJECTS -->
+<section class="fade-up">
+  <h1 class="section-title">DevOps Projects</h1>
+  <p class="section-subtitle">
+    A look at the practical cloud and DevOps work I've done — focusing on automation, 
+    networking, reliability and secure infrastructure design.
+  </p>
+
+  <div class="grid">
+
+    <!-- PROJECT 1 -->
+    <div class="card">
+      <h3 class="card-title">E-commerce Flask App · Docker + AWS</h3>
+      <p class="card-text">
+        Containerized a Flask application using Docker and deployed it to AWS EC2 inside a secure VPC.
+        Implemented public and private subnets, proper routing, SSH-restricted bastion access,
+        and environment-based configuration to keep deployments reproducible and secure.
+      </p>
+      <div>
+        <span class="badge">Flask</span>
+        <span class="badge">Docker</span>
+        <span class="badge">EC2</span>
+        <span class="badge">VPC</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="card">
+      <h3 class="card-title">DevOps Networking Simulation Lab</h3>
+      <p class="card-text">
+        Designed a cloud simulation environment that mirrors real production networking:
+        isolated private subnets, NAT Gateway, routing tables, Internet Gateway and 
+        restricted security groups — helping me understand enterprise-grade cloud traffic flow.
+      </p>
+      <div>
+        <span class="badge">VPC</span>
+        <span class="badge">Subnets</span>
+        <span class="badge">Routing</span>
+        <span class="badge">Security</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FUTURE / IN PROGRESS -->
+<section class="fade-up">
+  <h2 class="section-title">Planned / In Progress</h2>
+  <p class="section-subtitle">
+    DevOps infrastructure projects I'm currently building or planning next to strengthen 
+    automation and cloud deployment skills.
+  </p>
+
+  <div class="grid grid-3">
+
+    <!-- PLAN 1 -->
+    <div class="card">
+      <h3 class="card-title">CI/CD Automation Pipeline</h3>
+      <p class="card-text">
+        A complete CI/CD flow with GitHub Actions: build Docker images, run automated tests,
+        push to registry and deploy to a remote server — including rollback support 
+        and proper environment separation.
+      </p>
+    </div>
+
+    <!-- PLAN 2 -->
+    <div class="card">
+      <h3 class="card-title">Kubernetes Deployment Stack</h3>
+      <p class="card-text">
+        Deploying a multi-container Flask app on Kubernetes with Ingress, autoscaling (HPA),
+        ConfigMaps, and cluster-friendly configuration patterns.
+      </p>
+    </div>
+
+    <!-- PLAN 3 -->
+    <div class="card">
+      <h3 class="card-title">Terraform AWS Infrastructure</h3>
+      <p class="card-text">
+        Building a fully automated AWS architecture using Terraform modules: VPC, subnets,
+        EC2, ALB, IAM and security rules — all reproducible and version-controlled.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

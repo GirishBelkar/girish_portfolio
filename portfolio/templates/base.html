@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Girish's Portfolio{% endblock %}</title>
+
+  <!-- Base stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- AOS Animations -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --border-subtle: rgba(255, 255, 255, 0.12);
+      --text-main: #ffffff;
+      --text-soft: #d0d0d0;
+      --accent1: #8ab4ff;
+      --accent2: #b38bff;
+      --accent3: #ff8ad4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Ambient glow background */
+    .glow-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .glow-circle {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.5;
+      animation: floatGlow 12s ease-in-out infinite;
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-80px) translateX(60px); }
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 14px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(16px);
+      background: rgba(10, 10, 10, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 1.05rem;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 18px;
+      font-size: 0.95rem;
+    }
+
+    .navbar-links a {
+      position: relative;
+      padding-bottom: 3px;
+      color: #e5e5e5;
+      transition: 0.25s ease;
+    }
+
+    .navbar-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent3));
+      transition: width 0.25s ease;
+    }
+
+    .navbar-links a:hover {
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .navbar-links a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      padding-top: 90px;
+      max-width: 1100px;
+      margin: 0 auto 70px auto;
+      padding-inline: 20px;
+    }
+
+    section {
+      margin-bottom: 40px;
+      padding: 50px 22px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 36px rgba(0, 0, 0, 0.4);
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 18px;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-soft);
+      margin-bottom: 20px;
+    }
+
+    .hero {
+      text-align: center;
+      padding-block: 80px;
+    }
+
+    .hero-title {
+      font-size: 3.1rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      max-width: 750px;
+      margin: 0 auto 26px auto;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 26px;
+      border-radius: 30px;
+      font-size: 0.98rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color: #fff;
+      box-shadow: 0 0 16px rgba(140, 150, 255, 0.5);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 24px rgba(140, 150, 255, 0.8);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.18);
+      color: #f5f5f5;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-3px);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 26px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      color: var(--text-soft);
+      font-size: 0.97rem;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-right: 6px;
+      margin-top: 4px;
+    }
+
+    .timeline-item {
+      margin-bottom: 18px;
+    }
+
+    .timeline-item-title {
+      font-size: 1rem;
+      color: var(--accent1);
+      margin-bottom: 4px;
+    }
+
+    .timeline-item-text {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .social-links a {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.04);
+      color: #eaeaea;
+    }
+
+    .social-links a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Fade-up effect (boosted via JS + AOS) */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: 0.8s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 720px) {
+      .hero-title {
+        font-size: 2.3rem;
+      }
+      section {
+        padding-inline: 18px;
+      }
+      .navbar {
+        padding-inline: 18px;
+      }
+      .navbar-links {
+        gap: 10px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- Ambient glow background -->
+  <div class="glow-bg">
+    <div class="glow-circle" style="top: 5%; left: 0; background: var(--accent1);"></div>
+    <div class="glow-circle" style="bottom: -10%; right: 5%; background: var(--accent3);"></div>
+    <div class="glow-circle" style="top: 40%; right: 20%; background: var(--accent2);"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" data-aos="fade-down" data-aos-duration="900">
+    <div class="navbar-brand">GIRISH · DEVOPS</div>
+    <div class="navbar-links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('about') }}">About</a>
+      <a href="{{ url_for('projects') }}">Projects</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Page content -->
+  <main class="{% if contact_page %}contact-mode{% endif %}">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Smooth scrolling -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@latest/bundled/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  </script>
+
+  <!-- AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    // Fade-up reveal
+    const revealElements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.18 });
+
+    revealElements.forEach(el => observer.observe(el));
+  </script>
+
+  {% block scripts %}{% endblock %}
+<script>
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+    for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+
+        if (elementTop < windowHeight - 70) {
+            reveals[i].classList.add("visible");
+        }
+    }
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+</script>
+<script src="{{ url_for('static', filename='js/reveal.js') }}"></script>
+
+</body>
+</html>

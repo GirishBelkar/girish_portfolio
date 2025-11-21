@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | Girish's Portfolio{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section id="hero" class="hero fade-up">
+  <h1 class="hero-title">Hi, I'm Girish</h1>
+
+  <p class="hero-subtitle">
+    DevOps Engineer focused on building <strong>secure, automated</strong> and 
+    <strong>cloud-native</strong> systems using AWS, Docker, Linux and Flask.
+  </p>
+
+  <div class="hero-cta">
+    <a href="{{ url_for('projects') }}" class="btn btn-primary">View DevOps Projects</a>
+    <a href="{{ url_for('contact') }}" class="btn btn-ghost">Contact / Hire Me</a>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="fade-up">
+  <h2 class="section-title">Tech Stack</h2>
+  <p class="section-subtitle">Core tools and technologies I use for infrastructure and automation.</p>
+
+  <div class="grid grid-3">
+
+    <div class="card">
+      <h3 class="card-title">Cloud & Infrastructure</h3>
+      <p class="card-text">
+        Experience with AWS compute, networking, storage and secure architecture planning.
+      </p>
+      <div>
+        <span class="badge">AWS</span>
+        <span class="badge">VPC</span>
+        <span class="badge">EC2</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">DevOps & Automation</h3>
+      <p class="card-text">
+        Containerization, version control, CI/CD pipelines, and workflow automation with GitHub Actions.
+      </p>
+      <div>
+        <span class="badge">Docker</span>
+        <span class="badge">CI/CD</span>
+        <span class="badge">GitHub Actions</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Backend & Systems</h3>
+      <p class="card-text">
+        API development with Flask, Python automation scripts, Linux servers and Nginx configuration.
+      </p>
+      <div>
+        <span class="badge">Python</span>
+        <span class="badge">Flask</span>
+        <span class="badge">Linux</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section class="fade-up">
+  <h2 class="section-title">Highlighted Projects</h2>
+  <p class="section-subtitle">Hands-on projects that reflect real DevOps workflows.</p>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3 class="card-title">E-commerce Flask App (Docker + AWS)</h3>
+      <p class="card-text">
+        Containerized a Flask backend with Docker and deployed it on AWS EC2 within a secure VPC.
+        Implemented SSH access, security groups and environment-based configuration.
+      </p>
+      <div>
+        <span class="badge">Flask</span>
+        <span class="badge">Docker</span>
+        <span class="badge">AWS EC2</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">DevOps Simulation Lab</h3>
+      <p class="card-text">
+        Designed a complete networking setup including public/private subnets, routing and NAT —
+        replicating how production cloud environments operate and stay isolated.
+      </p>
+      <div>
+        <span class="badge">VPC</span>
+        <span class="badge">Subnets</span>
+        <span class="badge">Security Groups</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
